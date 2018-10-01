@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pong</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+       canvas {
+            border:1px solid #d3d3d3;
+            background-color: #f1f1f1;
+			width: 480px;
+            height: 270px;
+            position:absolute;
+ top:0;bottom:0;right:0;left:0;
+ margin:auto;
+        }
+        #touch-class {
+            width: 480px;
+            height: 270px;
+            background-color: transparent;
+			 position:absolute;
+ top:0;bottom:0;right:0;left:0;
+ margin:auto;
+			border: 1px solid red;
+        }
+    </style>
+    <script src="phaser.min.js"></script>
+    <script src="pong.js"></script>
+  </head>
+  <body>
+	 <div class="app">
+        <div id="touch-class"></div>
+        <br>
+		<center>
+        <p>It is a simplified Pong example</p>
+        <p>You can control de bar by sides</p>
+		</center>
+    </div>
+  </body>
+  <script>
+	var game = new Phaser.Game(480, 270, Phaser.CANVAS, 'phaser-example', 
+           { preload: preload, create: create, update: update });
+
+		function preload() 
+		{
+			game.load.image('atari', './atari130xe.png');
+			game.load.image('player', './mushroom2.png')
+		}
+
+		var rebatedor;
+		var bola;
+		var keyLeft;
+		var keyRight;
+
+		function create() 
+		{
+			game.physics.startSystem(Phaser.Physics.ARCADE);
+			game.stage.backgroundColor = '#550033';
+			keyLeft = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+			keyRight = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+			rebatedor = game.add.sprite(300, 500, 'atari');
+			rebatedor.scale.setTo(0.5, 0.5);
+			game.physics.enable(rebatedor, Phaser.Physics.ARCADE);
+			rebatedor.body.collideWorldBounds = true;
+			rebatedor.body.checkCollision.up = true;
+			rebatedor.body.checkCollision.down = true;
+			rebatedor.body.checkCollision.left = true;
+			rebatedor.body.checkCollision.right = true;
+			rebatedor.body.immovable = true
+
+			bola = game.add.sprite(0, 210, 'player', 4);
+			bola.scale.setTo(0.5, 0.5);
+			game.physics.enable(bola, Phaser.Physics.ARCADE);
+			bola.body.collideWorldBounds = true;
+			bola.body.bounce.setTo(1, 1);	
+			bola.body.velocity.x = 140;
+			bola.body.velocity.y = 140;
+		}
+
+		function update() 
+		{
+			game.physics.arcade.collide(rebatedor, bola);		
+			if (keyLeft.isDown)
+			{
+				rebatedor.body.velocity.x = -70;;
+			}
+			if (keyRight.isDown)
+			{
+				rebatedor.body.velocity.x = 70;
+			}
+		}
+  </script>
+</html>
