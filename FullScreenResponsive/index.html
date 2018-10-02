@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name = "viewport" content = "width=device-width">
+    <title>Test of Resize/Responsive</title>
+
+    <style>
+      * { box-sizing:border-box; margin:0; padding:0; }
+      html { height:100%; width:100%; }
+      body {
+        align-content:space-around;
+        background-color:#202830;
+        color:#ffffff;
+        display:grid;
+        justify-content:center;
+        font-size:1.25em;
+        min-height:100%;
+        width:100%;
+      }
+      p { text-align:center; }
+    </style>
+
+  </head>
+  <body>
+  
+    <canvas></canvas>
+    <script type = "text/javascript">
+      var context = document.querySelector("canvas").getContext("2d");
+      var render = function() {
+        context.canvas.width = document.documentElement.clientWidth * 1;
+        context.canvas.height = document.documentElement.clientHeight * 1;
+        context.fillStyle = "#008000";
+        context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+		context.fillStyle = "#000000";
+		context.font = "30px Arial";
+		context.textAlign="center"; 
+		context.fillText("Test of Resize/Responsive",context.canvas.width/2,context.canvas.height/2);
+      };
+      window.addEventListener("resize", render);
+      render();
+    </script>
+  </body>
+</html>
