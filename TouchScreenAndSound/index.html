@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name = "viewport" content = "width=device-width">
+    <title>Test of Resize/Responsive</title>
+
+    <style>
+      * { box-sizing:border-box; margin:0; padding:0; }
+      html { height:100%; width:100%; }
+      body {
+        align-content:space-around;
+        background-color:#202830;
+        color:#ffffff;
+        display:grid;
+        justify-content:center;
+        font-size:1.25em;
+        min-height:100%;
+        width:100%;
+      }
+      p { text-align:center; }
+    </style>
+
+  </head>
+  <body id="body">
+  
+    <canvas></canvas>
+    <script type = "text/javascript">
+	var audio1 = new Audio('harp.wav');
+
+	
+      var context = document.querySelector("canvas").getContext("2d");
+      var render = function() {
+        context.canvas.width = document.documentElement.clientWidth * 1;
+        context.canvas.height = document.documentElement.clientHeight * 1;
+        context.fillStyle = "#950095";
+        context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+		context.fillStyle = "white";
+		context.font = "30px Arial";
+		context.textAlign="center"; 
+		context.fillText("Test of Touchscreen and Sound...",context.canvas.width/2,context.canvas.height/2);
+
+      };
+      window.addEventListener("resize", render);
+      render();
+	  
+	  (function() 
+		{
+            var touch = document.getElementById("body");
+            touch.addEventListener("touchstart", function(event) {
+                audio1.play();
+            }, false);
+        })();
+    </script>
+  </body>
+</html>
